@@ -269,11 +269,11 @@ function allFilesAreLoaded() {
     }
 
     // Post values to the UI filling them in by ID
-    postValue('auth', version_info.auth);
-    postValue('vers', version_info.vers);
-
     const d = new Date(version_info.date);
     postValue('date', d.toLocaleDateString([], { weekday:'long', year:'numeric', month:'short', day:'numeric' }));
+
+    postValue('auth', version_info.auth);
+    postValue('vers', version_info.vers);
 
     postValue('extruders', extruder_info.extruders);
     postValue('extruder-desc', extruder_info.description);
@@ -755,6 +755,7 @@ function run_command(action) {
   if (panel) {
     panel.reveal(vscode.ViewColumn.One);
     runSelectedAction();
+    //vw.showInformationMessage('ABM Action: ' + (action ? action : ''));
   }
   else {
 
@@ -823,6 +824,8 @@ function run_command(action) {
 
     // Create an IPC file for messages from Terminal
     createIPCFile();
+
+    //vw.showInformationMessage('ABM View Ready: ' + (action ? action : ''));
   }
   set_context('visible', true);
 }
