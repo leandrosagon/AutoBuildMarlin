@@ -217,8 +217,8 @@ function allFilesAreLoaded() {
   // Send text for display in the view
   //postMessage({ command:'text', text:marlin.files.boards.text });
 
+  // Was MOTHERBOARD found? Use the first instance.
   const mb = marlin.configValue('MOTHERBOARD');
-
   if (mb !== undefined) {
 
     //const sensors = extractTempSensors();
@@ -234,10 +234,13 @@ function allFilesAreLoaded() {
       postError(board_info.error);
       return; // abort the whole deal
     }
+
     const machine_info = marlin.getMachineSettings();
     log("Machine Info :", machine_info);
+
     const extruder_info = marlin.getExtruderSettings();
     log("Extruder Info :", extruder_info);
+
     const pindef_info = marlin.getPinDefinitionInfo(mb);
     log("Pin Defs Info :", pindef_info);
 
@@ -825,7 +828,9 @@ function runSelectedAction() {
   }
 }
 
-// Look for a script in buildroot/share/PlatformIO and run it.
+// Look for a script in buildroot/share/PlatformIO/scripts and run it.
+// Exit if 'script' is not found or optional 'needs' are not met.
+// Optional 'args' are added to the python command.
 function runPython(script, needs, args) {
   const script_file = path.join(marlin.workspaceRoot, 'buildroot', 'share', 'PlatformIO', 'scripts', script);
   if (!fs.existsSync(script_file)) {
