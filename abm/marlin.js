@@ -45,8 +45,12 @@ const vscode = require('vscode'), ws = vscode.workspace,
       workspaceRoot = (ws && ws.workspaceFolders && ws.workspaceFolders.length) ? ws.workspaceFolders[0].uri.fsPath : '';
 
 var temp = {}, bugme = false;
-
-function init(b) { bugme = b; }
+function init(v, b) {
+  bugme = b;
+  vscode = v;
+  //vc = v.commands;
+  ws = v.workspace;
+}
 
 //
 // Get a list of Configurations Folders using the GitHub API

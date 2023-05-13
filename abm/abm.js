@@ -28,7 +28,7 @@ function log(s, d=null) {
 
 function init(c) {
   log('<=== AUTO BUILD MARLIN ===>');
-  marlin.init(bugme);
+  marlin.init(vscode, bugme);
   context = c;
   abm_path = path.join(c.extensionPath, 'abm');
   pane_path = path.join(c.extensionPath, 'abm', 'pane');
